@@ -13,14 +13,17 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
-# Add your SMTP server details, email credentials, and sender/recipient information here
-smtp_server = 'smtp.gmail.com'
-smtp_port = 587
-sender_email = 'update.and.notify.me.now@gmail.com'
-sender_password = 'kpdmqmnxnxmhkjcw'
-recipient_email = 'update.and.notify.me.now@gmail.com'
+# Retrieve email credentials from environment variables
+smtp_server = os.getenv('SMTP_SERVER')
+smtp_port = os.getenv('SMTP_PORT')
+sender_email = os.getenv('SENDER_EMAIL')
+sender_password = os.getenv('SENDER_PASSWORD')
+recipient_email = os.getenv('RECIPIENT_EMAIL')
 
 def check_appointments():
     # Create a new instance of the Chrome driver
@@ -155,7 +158,7 @@ def check_appointments():
     error_message_element = driver.find_elements(By.CLASS_NAME, 'errorMessage')
 
     if error_message_element:
-        print("No Appointments Available")
+
         # Create the email message
         message = MIMEMultipart()
         message['From'] = sender_email
@@ -176,7 +179,7 @@ def check_appointments():
             server.send_message(message)
 
     else:
-        print("Bookings available")
+
 
         # Create the email message
         message = MIMEMultipart()
