@@ -1,1 +1,1 @@
-web: python Residence Permit tool.py
+web: python residencepermittool.py
