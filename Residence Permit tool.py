@@ -156,8 +156,24 @@ def check_appointments():
 
     if error_message_element:
         print("No Appointments Available")
+        # Create the email message
+        message = MIMEMultipart()
+        message['From'] = sender_email
+        message['To'] = recipient_email
+        message['Subject'] = 'Nothing yet'
+        body = 'Nope'
+        message.attach(MIMEText(body, 'plain'))
 
+        # Connect to the SMTP server
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            # Start the TLS connection
+            server.starttls()
 
+            # Log in to the Gmail account
+            server.login(sender_email, sender_password)
+
+            # Send the email
+            server.send_message(message)
 
     else:
         print("Bookings available")
@@ -198,7 +214,7 @@ def check_appointments():
     driver.quit()
 
 
-# Schedule the job to run every 2 minutes
+# Schedule the job to run in minutes
 schedule.every(1).minutes.do(check_appointments)
 
 # Keep the script running indefinitely
