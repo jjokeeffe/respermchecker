@@ -158,7 +158,7 @@ def check_appointments():
     error_message_element = driver.find_elements(By.CLASS_NAME, 'errorMessage')
 
     if error_message_element:
-        print("No Appts")
+        driver.quit()
 
 
     else:
