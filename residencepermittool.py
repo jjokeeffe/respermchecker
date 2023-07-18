@@ -158,25 +158,8 @@ def check_appointments():
     error_message_element = driver.find_elements(By.CLASS_NAME, 'errorMessage')
 
     if error_message_element:
+        print("No Appts")
 
-        # Create the email message
-        message = MIMEMultipart()
-        message['From'] = sender_email
-        message['To'] = recipient_email
-        message['Subject'] = 'Nothing yet'
-        body = 'Nope'
-        message.attach(MIMEText(body, 'plain'))
-
-        # Connect to the SMTP server
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            # Start the TLS connection
-            server.starttls()
-
-            # Log in to the Gmail account
-            server.login(sender_email, sender_password)
-
-            # Send the email
-            server.send_message(message)
 
     else:
 
